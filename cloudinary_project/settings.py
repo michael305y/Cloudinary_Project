@@ -20,21 +20,33 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+import os
+from dotenv import load_dotenv
+
+
+ENV_FILE_PATH = os.path.join(BASE_DIR, '../.cloudinary/.env')
+
+# Load the .env file
+load_dotenv(ENV_FILE_PATH)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5387(-)ffet*1n!*_lmu)73_$lcpjl*ji&in@@0h17y5&-h!!p'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,11 +143,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# cloudinary_django integration
+# cloudinary_django CONF settings for integration
 cloudinary.config(
-    cloud_name="dembpr5hk",
-    api_key="895483863926583",
-    api_secret="d40LAjKXRctwtzt7OvCrf5y0FxE"
+    cloud_name = os.getenv('cloud_name'),
+    api_key = os.environ.get('api_key'),
+    api_secret = os.environ.get('api_secret')
 )
 
 
